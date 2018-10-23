@@ -4,6 +4,7 @@ package application;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -29,8 +30,14 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dictionary  = new Dictionary();
-        System.out.println("hello world");
+        SQLiteJDBCDriverConnection sqLiteJDBCDriverConnection = new SQLiteJDBCDriverConnection();
+        sqLiteJDBCDriverConnection.connect();
+        dictionary = new Dictionary(sqLiteJDBCDriverConnection.initialDictionary());
+        sqLiteJDBCDriverConnection.disconnect();
+        ArrayList<Word> a = dictionary.lockUp("a");
+        for (Word w : a) {
+            System.out.println(w.toString());
+        }
 
     }
 

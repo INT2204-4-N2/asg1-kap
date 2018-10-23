@@ -2,6 +2,7 @@ package application;
 
 import java.sql.*;
 import java.util.ArrayList;
+import radixTree.RadixTree;
 
 public class SQLiteJDBCDriverConnection {
     Connection connection = null;
@@ -87,8 +88,8 @@ public class SQLiteJDBCDriverConnection {
      * @param sql
      * @return An ArrayList of word arcoding to
      */
-    public ArrayList<Word> executeSQLSelectQuery(String sql) {
-        ArrayList<Word> dictionary = new ArrayList<Word>();
+    public RadixTree<Word> executeSQLSelectQuery(String sql) {
+        RadixTree<Word> dictionary = new RadixTree<Word>();
         Statement statement = null;
         ResultSet resultSet = null;
         try {
@@ -99,7 +100,7 @@ public class SQLiteJDBCDriverConnection {
                 String wordTarget = resultSet.getString("WORD_TARGET");
                 String wordMeaning = resultSet.getString("WORD_MEANING");
                 Word tempWord = new Word(id, wordTarget, wordMeaning);
-                dictionary.add(tempWord);
+                dictionary.put(wordTarget,  tempWord);
 
             }
         } catch (SQLException e) {
@@ -124,13 +125,18 @@ public class SQLiteJDBCDriverConnection {
         this.executeSQL("UPDATE INTO dictionary_e_v SET WORD_TARGET, WORD_MEANING WHERE ID = " + id + " ;");
     }
 
+    public void editWordDictionary(int id) {
+        this.executeSQL("DELETE FROM dictionary_e_v WHERE ID = " + id + ";");
+    }
+
+    public RadixTree<Word> initialDictionary(){
+        return this.executeSQLSelectQuery("SELECT * FROM dictionary_e_v ");
+    }
+
 
     public static void main(String[] args) {
         SQLiteJDBCDriverConnection sqLiteJDBCDriverConnection = new SQLiteJDBCDriverConnection();
         sqLiteJDBCDriverConnection.connect();
-        ArrayList<Word> dict = sqLiteJDBCDriverConnection
-                .executeSQLSelectQuery("SELECT * FROM dictionary_e_v WHERE WORD_TARGET LIKE \'p%\';");
-
         sqLiteJDBCDriverConnection.disconnect();
     }
 }
