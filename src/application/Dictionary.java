@@ -41,6 +41,10 @@ public class Dictionary {
             this.add(w);
         }
     }
+    public ArrayList<Word> iterate () {
+        return this.lockUp("");
+    }
+
 
 
     public static void main(String[] args) {
@@ -55,7 +59,7 @@ public class Dictionary {
         dict.add(word3);
         dict.add(word4);
         dict.add(word5);
-        ArrayList<Word> a = dict.lockUp("a");
+        ArrayList<Word> a = dict.iterate();
         for (Word w : a) {
             System.out.println(w.toString());
         }
