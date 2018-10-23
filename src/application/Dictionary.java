@@ -28,27 +28,35 @@ public class Dictionary {
     }
 
     public ArrayList<Word> lockUp(String wordTarget) {
-       return (ArrayList<Word>) this.dictionary.getValuesWithPrefix(wordTarget);
+        return (ArrayList<Word>) this.dictionary.getValuesWithPrefix(wordTarget);
     }
 
-    public void add(Word word){
+    public void add(Word word) {
         dictionary.put(word.getWordTarget(), word);
     }
 
+
+    public void addAll(ArrayList<Word> wordsList) {
+        for (Word w : wordsList) {
+            this.add(w);
+        }
+    }
+
+
     public static void main(String[] args) {
         Dictionary dict = new Dictionary();
-        Word word1 = new Word(1 , "a" , "1")
-        Word word2 = new Word(1 , "af" , "2")
-        Word word3 = new Word(1 , "df" , "3")
-        Word word4 = new Word(1 , "aa" , "4")
-        Word word5 = new Word(1 , "artr" , "5");
+        Word word1 = new Word(1, "a", "1");
+        Word word2 = new Word(1, "af", "2");
+        Word word3 = new Word(1, "df", "3");
+        Word word4 = new Word(1, "aa", "4");
+        Word word5 = new Word(1, "artr", "5");
         dict.add(word1);
         dict.add(word2);
         dict.add(word3);
         dict.add(word4);
         dict.add(word5);
-        ArrayList<Word>a =  dict.lockUp("a");
-        for (Word w : a){
+        ArrayList<Word> a = dict.lockUp("a");
+        for (Word w : a) {
             System.out.println(w.toString());
         }
     }
