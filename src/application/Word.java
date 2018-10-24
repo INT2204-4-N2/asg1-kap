@@ -8,9 +8,9 @@ public class Word implements Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
-
     private int id = 0;
     private String wordTarget = "";
+
     private String wordMeaning = "";
 
     public Word(int id, String wordTarget, String wordMeaning) {
@@ -32,11 +32,19 @@ public class Word implements Serializable {
     }
 
     public String getWordTarget() {
-        return wordTarget;
+        return this.wordTarget;
     }
 
     public void setWordTarget(String wordTarget) {
         this.wordTarget = wordTarget;
+    }
+
+    public String getWordMeaning() {
+        return wordMeaning;
+    }
+
+    public void setWordMeaning(String wordMeaning) {
+        this.wordMeaning = wordMeaning;
     }
 
     @Override
